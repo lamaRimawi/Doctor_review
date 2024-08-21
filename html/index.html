@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Review System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ag-Grid CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-theme-alpine.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="">
+<nav class="navbar navbar-expand-lg shadow sticky-top">
+  <div class="container-fluid d-flex justify-content-around">
+
+
+    <a class="navbar-brand" href="#"><img src="../image/2730772.svg" style="max-width: 100px;"></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item pr-4">
+          <a class="nav-link active text-dark" aria-current="page" href="#" id="user">Home</a>
+        </li>
+        <li class="nav-item pr-4">
+          <a class="nav-link text-dark" href="login.html">Logout</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<section class="search mt-5">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-12 col-md-4 mb-2">
+        <button type="submit" class="btn btn-outline-warning btn-xxl rounded shadow w-100" id="btn_search">Search</button>
+      </div>
+
+      <div class="col-12 col-md-4 mb-2">
+        <select class="form-select rounded shadow w-100" id="form-select" aria-label="Default select example">
+          <option selected id="sel">Category</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-4 mb-2">
+        <input class="form-control shadow w-100" type="search" placeholder="Search word" aria-label="Search" id="input_search">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sec2 mt-5 container-fluid ">
+<ul class="nav nav-tabs" id="nav_tabs">
+  <li class="nav-item ">
+    <a class="nav-link active text-warning" aria-current="page" href="#">All</a>
+  </li>
+
+</ul>
+    </section>
+
+<div id="myGrid" class="ag-theme-quartz mt-5 container-fluid" style="height: 500px"></div>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination ">
+    <li class="page-item "><a class="page-link " href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item act"><a class="page-link " href="#">2</a></li>
+    <li class="page-item"><a class="page-link " href="#">3</a></li>
+       <li class="page-item"><a class="page-link " href="#">...</a></li>
+       <li class="page-item"><a class="page-link " href="#">258</a></li>
+    <li class="page-item"><a class="page-link " href="#">Next</a></li>
+  </ul>
+</nav>
+
+
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- ag-Grid JS -->
+
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
