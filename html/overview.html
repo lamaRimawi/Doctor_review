@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Overview</title>
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/overview.css">
@@ -28,10 +29,10 @@
     </div>
 </nav>
 
-<section class="container mt-5">
+<section class="mt-5">
 
     <div class="container overflow-hidden">
-  <div class="row gx-5">
+  <div class="row gx-5 ">
     <div class="col border shadow " id="doctorInfo">
 
     </div>
@@ -46,18 +47,36 @@
 </section>
 
 
-<div class="modal fade" id="reviewDialog" tabindex="-1" aria-labelledby="reviewDialogLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+
+<div class="modal fade " id="reviewDialog" tabindex="-1" aria-labelledby="reviewDialogLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
             <div class="modal-header">
-                <h5 class="modal-title" id="reviewDialogLabel">Review Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="modal-title" id="reviewDialogLabel">Add Your Review</h3>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p id="reviewNotes"></p>
+                <form id="reviewForm">
+
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Review</label>
+                        <textarea class="form-control" id="reviewText" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewRating" class="form-label">Rating</label>
+                        <select class="form-select" id="reviewRating">
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light" id="submitReviewButton">Submit Review</button>
             </div>
         </div>
     </div>
@@ -67,9 +86,11 @@
 
 
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script src="../js/overview.js"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@
         var email = localStorage.getItem("email");
 
         if (log_pass.value === "" || email_input.value === "") {
-            alert("Please fill all inputs");
+
         } else if (email && email_input.value.trim() === email &&
                    password && password === log_pass.value.trim()) {
 
