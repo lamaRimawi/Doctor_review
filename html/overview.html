@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Overview</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
@@ -32,7 +36,7 @@
 <section class="mt-5">
 
     <div class="container overflow-hidden">
-  <div class="row gx-5 ">
+  <div class="row gx-5 flex-column ">
     <div class="col border shadow " id="doctorInfo">
 
     </div>
@@ -48,35 +52,34 @@
 
 
 
-<div class="modal fade " id="reviewDialog" tabindex="-1" aria-labelledby="reviewDialogLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content ">
+<div class="modal fade" id="reviewDialog" tabindex="-1" aria-labelledby="reviewDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="reviewDialogLabel">Add Your Review</h3>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" style="width: 15px;"></button>
             </div>
             <div class="modal-body">
                 <form id="reviewForm">
-
                     <div class="mb-3">
-                        <label for="reviewText" class="form-label">Review</label>
+                        <label for="reviewText" class="form-label" ><b>Review</b></label>
                         <textarea class="form-control" id="reviewText" rows="3"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="reviewRating" class="form-label">Rating</label>
-                        <select class="form-select" id="reviewRating">
-                            <option value="1">1 Star</option>
-                            <option value="2">2 Stars</option>
-                            <option value="3">3 Stars</option>
-                            <option value="4">4 Stars</option>
-                            <option value="5">5 Stars</option>
-                        </select>
+                    <div class="mb-3 star">
+                        <label for="rating" class="form-label"><b>Rating</b></label>
+                        <div id="ratingStars">
+                            <span class="fa fa-star" data-value="1"></span>
+                            <span class="fa fa-star" data-value="2"></span>
+                            <span class="fa fa-star" data-value="3"></span>
+                            <span class="fa fa-star" data-value="4"></span>
+                            <span class="fa fa-star" data-value="5"></span>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-light" id="submitReviewButton">Submit Review</button>
+                <button type="button" class="btn btn-primary" id="submitReviewButton" disabled>Submit Review</button>
             </div>
         </div>
     </div>

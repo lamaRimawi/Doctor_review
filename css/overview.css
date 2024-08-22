@@ -5,3 +5,56 @@
     opacity: 0.9;
     background: #ffc107;
 }
+.info{
+    background: #fff1cd;
+}
+.fa-star {
+    font-size: 1.5em;
+    color: #a69999;
+    cursor: pointer;
+}
+
+.fa-star.checked {
+    color: #e15a5a;
+}
+.rev{
+    background: #e7e6e4;
+}
+.modal-header{
+    background: #cbc7bb;
+}
+.modal-footer{
+    background: #cbc7bb;
+}
+.modal-body{
+    background: #fdf6df;
+}
+
+#doctorInfo {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#doctorInfo:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+
+
+
+
+.card.rev {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.card.rev:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+@media (max-width: 767.98px) {
+    #doctorInfo, .card.rev {
+        transform: none;
+    }
+}

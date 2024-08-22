@@ -1,30 +1,47 @@
-var username=localStorage.getItem("username");
-var password=localStorage.getItem("password");
-var email=localStorage.getItem("email");
-var reg_user=document.getElementById("name");
-var reg_pass= document.getElementById("password");
-var reg_email= document.getElementById("email");
-var reg_sub= document.getElementById("signup");
+(function () {
+    'use strict';
+
+    var form = document.getElementById('registerForm');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (form.checkValidity()) {
+            var username = localStorage.getItem('username');
+            var email = localStorage.getItem('email');
+            var password = localStorage.getItem('password');
+
+            var regUser = document.getElementById('name').value.trim();
+            var regEmail = document.getElementById('email').value.trim();
+            var regPass = document.getElementById('password').value.trim();
 
 
-reg_sub.addEventListener('click',(e)=>{
-    e.preventDefault();
-    if(reg_pass.value=="" || reg_user.value=="" || reg_email.value==""){
-        alert("please fill all inputs");
+            if ((username && username === regUser) && (email && email === regEmail)) {
+                showAlert('danger', 'User already exists. Please use a different username or email.');
+            } else {
 
+                localStorage.setItem('username', regUser);
+                localStorage.setItem('email', regEmail);
+                localStorage.setItem('password', regPass);
+
+                showAlert('success', 'Registration successful! Redirecting to login page...');
+                setTimeout(() => {
+                    window.location.href = '../html/login.html';
+                }, 1500);
+            }
+        } else {
+
+            form.classList.add('was-validated');
+        }
+    });
+
+    function showAlert(type, message) {
+        var alertMessage = document.getElementById("alertMessage");
+        var alertText = document.getElementById("alertText");
+
+        alertMessage.classList.remove('d-none', 'alert-danger', 'alert-success');
+        alertMessage.classList.add(`alert-${type}`);
+        alertText.textContent = message;
     }
-    else if(((username) && username === reg_user.value.trim()) && ((password) && password === reg_pass.value.trim()) && ((email) && email === reg_email.value.trim())){
-         alert("y already have same account");
-    }
-    else {
-        localStorage.setItem("username",reg_user.value.trim());
-        localStorage.setItem("password",reg_pass.value.trim());
-        localStorage.setItem("email",reg_email.value.trim());
-        setTimeout(()=>{
-            window.location="../html/login.html"
-        } ,1500)
-
-    }
-
-
-});
+})();

@@ -2,32 +2,18 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "PT Sans", sans-serif;
+   font-family: "Oswald", sans-serif;
     text-transform: capitalize;
 }
 
-/*.search button , .search input , .search select{*/
-/*    padding: 0 20px;*/
-/*    width: 33%;*/
-
-/*}*/
  .search select{
-     /*margin: 0 30px ;*/
+
      text-transform: capitalize;
      font-size: 18px;
 
  }
 
- .ag-theme-quartz {
-    /* Changes the color of the grid text */
-      --ag-foreground-color: rgb(14, 68, 145);
-      /* Changes the color of the grid background */
-      --ag-background-color: rgb(241, 247, 255);
-      /* Changes the header color of the top row */
-      --ag-header-background-color: rgb(228, 237, 250);
-      /* Changes the hover color of the row*/
-      --ag-row-hover-color: rgb(216, 226, 255);
-}
+
  .navbar{
      background: #ffc107;
  }
@@ -41,3 +27,4 @@
 select{
     padding:7px 0 ;
 }
+
