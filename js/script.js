@@ -5,7 +5,6 @@ let selectedDoctorId = null;
 const myGridElement = document.querySelector('#myGrid');
 let selectedCityId = null;
 
-
 function createAllTab() {
     let li = document.createElement("li");
     li.className = "nav-item";
@@ -16,8 +15,7 @@ function createAllTab() {
     li.appendChild(a);
     nav_tabs.appendChild(li);
 
-
-    a.addEventListener('click', function() {
+    a.addEventListener('click', function () {
         setActiveTab(a);
         selectedCityId = null;
         filterAndDisplayDoctors();
@@ -50,8 +48,7 @@ get().then(data => {
         li.appendChild(a);
         nav_tabs.appendChild(li);
 
-
-        a.addEventListener('click', function() {
+        a.addEventListener('click', function () {
             setActiveTab(a);
             selectedCityId = item.id;
             filterAndDisplayDoctors();
@@ -70,22 +67,18 @@ getDoctors().then(data => {
         formselect.appendChild(option);
     });
 
-
     displayDoctors(info);
 });
 
 function setActiveTab(selectedTab) {
-
     const tabs = document.querySelectorAll('#nav_tabs .nav-link');
     tabs.forEach(tab => {
         tab.classList.remove('active');
         tab.classList.remove('text-warning');
     });
 
-
     selectedTab.classList.add('active');
     selectedTab.classList.add('text-warning');
-
 }
 
 function displayDoctors(data) {
@@ -114,7 +107,6 @@ function displayDoctors(data) {
         paginationPageSizeSelector: [10, 25, 50],
     };
 
-
     myGridElement.innerHTML = "";
     agGrid.createGrid(myGridElement, gridOptions);
 }
@@ -135,9 +127,14 @@ function filterAndDisplayDoctors() {
 }
 
 var btn_search = document.getElementById("btn_search");
-
 btn_search.addEventListener("click", function (e) {
     e.preventDefault();
+    filterAndDisplayDoctors();
+});
+
+
+var input_search = document.getElementById("input_search");
+input_search.addEventListener("keyup", function (e) {
     filterAndDisplayDoctors();
 });
 

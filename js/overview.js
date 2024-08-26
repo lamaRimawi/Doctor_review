@@ -9,7 +9,7 @@ function highlightStars(rating) {
 }
 
 
-function showUserReview(doctorId, username,selectedRating) {
+function showUserReview(doctorId, username, selectedRating) {
     const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
     const review = reviews.find(r => r.doctorId === doctorId && r.username === username);
 
@@ -17,35 +17,15 @@ function showUserReview(doctorId, username,selectedRating) {
         const reviewCard = document.getElementById('userReviewCard');
         const reviewTextElement = reviewCard.querySelector('.card-text');
         const reviewStarsElement = reviewCard.querySelector('.review-stars');
-    var reviewText = document.getElementById("reviewText").value;
+        reviewTextElement.textContent = review.text;
+        reviewStarsElement.innerHTML = generateStarRating(review.rating);
 
-
-
-     // let selectedRating = 0;
-
-
-    // document.querySelectorAll('#ratingStars .fa-star').forEach(function(star) {
-    //     star.addEventListener('click', function() {
-    //         selectedRating = this.getAttribute('data-value');
-    //         highlightStars(selectedRating);
-    //     });
-    // });
-
-
-        reviewTextElement.textContent = reviewText;
-        // reviewTextElement.textContent=review.text;
-        reviewStarsElement.innerHTML=generateStarRating(selectedRating);
-        // reviewStarsElement.innerHTML = generateStarRating(review.rating);
-
-        const reviewCollapse = new bootstrap.Collapse(reviewCard, {
-            toggle: true
-        });
+        const reviewCollapse = new bootstrap.Collapse(reviewCard, { toggle: true });
         reviewCollapse.show();
     } else {
         alert('No review found for this user.');
     }
 }
-
 
 async function getDoctorDetails(id) {
     const response = await fetch(`https://66c450e2b026f3cc6ceed002.mockapi.io/api/v1/doctors/${id}`);
@@ -53,9 +33,55 @@ async function getDoctorDetails(id) {
 }
 
 
+async function updateDoctorRating(doctorId, rating) {
+    const doctor = await getDoctorDetails(doctorId);
+
+    // Ensure ratings are handled as numbers
+    doctor.ratings = doctor.ratings ? doctor.ratings.map(Number) : [];
+    doctor.ratings.push(Number(rating));
+
+    const totalRating = doctor.ratings.reduce((sum, r) => sum + r, 0);
+    doctor.rating = totalRating / doctor.ratings.length;
+
+    await fetch(`https://66c450e2b026f3cc6ceed002.mockapi.io/api/v1/doctors/${doctorId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ rating: doctor.rating, ratings: doctor.ratings })
+    });
+}
+
+
+
+async function updateUserRating(doctorId, username, rating) {
+    const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    let userReview = reviews.find(r => r.doctorId === doctorId && r.username === username);
+
+    if (!userReview) {
+        userReview = { doctorId, username, ratings: [] };
+        reviews.push(userReview);
+    }
+
+    userReview.ratings.push(rating);
+    const totalRating = userReview.ratings.reduce((sum, r) => sum + r, 0);
+    userReview.rating = totalRating / userReview.ratings.length;
+
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+
+
+    // await fetch(`/api/user-reviews/${username}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(userReview)
+    // });
+}
+
+
 function saveReviewLocally(review) {
     const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
     const updatedReviews = reviews.filter(r => !(r.doctorId === review.doctorId && r.username === review.username));
     updatedReviews.push(review);
     localStorage.setItem('reviews', JSON.stringify(updatedReviews));
@@ -109,16 +135,15 @@ async function loadDoctorPage() {
         viewReviewButton.type = 'button';
         viewReviewButton.className = 'btn btn-info';
         viewReviewButton.textContent = 'View My Review';
-         document.querySelectorAll('#ratingStars .fa-star').forEach(function(star) {
-        star.addEventListener('click', function() {
-            rate = this.getAttribute('data-value');
-            highlightStars(rate);
+
+        document.querySelectorAll('#ratingStars .fa-star').forEach(function(star) {
+            star.addEventListener('click', function() {
+                selectedRating = this.getAttribute('data-value');
+                highlightStars(selectedRating);
+            });
         });
-    });
 
-
-
-        viewReviewButton.addEventListener('click', () => showUserReview(doctorId, username,rate));
+        viewReviewButton.addEventListener('click', () => showUserReview(doctorId, username, selectedRating));
         reviewModalFooter.insertBefore(viewReviewButton, reviewModalFooter.firstChild);
     }
 
@@ -140,7 +165,6 @@ async function loadDoctorPage() {
         </div>
     `;
 
-
     const reviewsSection = document.getElementById('reviews');
     reviewsSection.innerHTML = `
         <div class="card mb-3 shadow mt-5 rev"> 
@@ -153,13 +177,10 @@ async function loadDoctorPage() {
     `;
 }
 
-
 loadDoctorPage();
-
 
 document.addEventListener('DOMContentLoaded', function () {
     let selectedRating = 0;
-
 
     document.querySelectorAll('#ratingStars .fa-star').forEach(function(star) {
         star.addEventListener('click', function() {
@@ -175,46 +196,48 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.disabled = selectedRating <= 0;
     }
 
-document.getElementById('submitReviewButton').addEventListener('click', function() {
-    const reviewText = document.getElementById('reviewText').value;
-    const doctorId = new URLSearchParams(window.location.search).get('id');
-    const username = localStorage.getItem('username');
-    const reviewData = {
-        doctorId: doctorId,
-        rating: selectedRating,
-        text: reviewText || '',
-        username: username,
-    };
+
+    document.getElementById('submitReviewButton').addEventListener('click', async function() {
+        const reviewText = document.getElementById('reviewText').value;
+        const doctorId = new URLSearchParams(window.location.search).get('id');
+        const username = localStorage.getItem('username');
+        const rating = selectedRating;
 
 
-    saveReviewLocally(reviewData);
-
-    console.log('Review Submitted:', reviewData);
-
-
-    const reviewCard = document.getElementById('userReviewCard');
-    const reviewTextElement = reviewCard.querySelector('.card-text');
-    const reviewStarsElement = reviewCard.querySelector('.review-stars');
-
-    reviewTextElement.textContent = reviewText;
-    reviewStarsElement.innerHTML = generateStarRating(selectedRating);
+        await updateDoctorRating(doctorId, rating);
+        await updateUserRating(doctorId, username, rating);
 
 
-    const reviewCollapse = new bootstrap.Collapse(reviewCard, {
-        toggle: false
+        const reviewData = {
+            doctorId: doctorId,
+            rating: rating,
+            text: reviewText || '',
+            username: username,
+        };
+
+        saveReviewLocally(reviewData);
+
+
+        const reviewCard = document.getElementById('userReviewCard');
+        const reviewTextElement = reviewCard.querySelector('.card-text');
+        const reviewStarsElement = reviewCard.querySelector('.review-stars');
+
+        reviewTextElement.textContent = reviewText;
+        reviewStarsElement.innerHTML = generateStarRating(rating);
+
+
+        const reviewCollapse = new bootstrap.Collapse(reviewCard, { toggle: false });
+        reviewCollapse.show();
+
+
+        selectedRating = 0;
+        highlightStars(selectedRating);
+        document.getElementById('reviewForm').reset();
+        validateForm();
+
+        $('#reviewDialog').modal('hide');
+
     });
-    reviewCollapse.show();
-
-
-    selectedRating = 0;
-    highlightStars(selectedRating);
-    document.getElementById('reviewForm').reset();
-    validateForm();
-
-    $('#reviewDialog').modal('hide');
-});
-
-
 
     validateForm();
 });
