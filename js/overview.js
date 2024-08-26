@@ -36,7 +36,7 @@ async function getDoctorDetails(id) {
 async function updateDoctorRating(doctorId, rating) {
     const doctor = await getDoctorDetails(doctorId);
 
-    // Ensure ratings are handled as numbers
+
     doctor.ratings = doctor.ratings ? doctor.ratings.map(Number) : [];
     doctor.ratings.push(Number(rating));
 
@@ -70,13 +70,7 @@ async function updateUserRating(doctorId, username, rating) {
     localStorage.setItem('reviews', JSON.stringify(reviews));
 
 
-    // await fetch(`/api/user-reviews/${username}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(userReview)
-    // });
+
 }
 
 
@@ -226,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
         reviewStarsElement.innerHTML = generateStarRating(rating);
 
 
-        const reviewCollapse = new bootstrap.Collapse(reviewCard, { toggle: false });
+        const reviewCollapse = new bootstrap.Collapse(reviewCard);
         reviewCollapse.show();
 
 
